@@ -1,0 +1,22 @@
+{
+  "name": "jsapplescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serialize-javascript": "^1.1.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "chai": "^3.4.1",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.0",
+    "mocha": "^2.3.4",
+    "shell-escape": "^0.2.0"
+  }
+}
