@@ -1,8 +1,7 @@
 import gulp from 'gulp';
 import babel from 'gulp-babel';
-// var gulp = require('gulp');
 
-var spawn = require('child_process').spawn;
+import { spawn } from 'child_process';
 
 gulp.task('build', () => {
     gulp.src(['src/**/*.js'])
@@ -11,13 +10,21 @@ gulp.task('build', () => {
 });
 
 gulp.task('test', () => {
-    var mocha;
-    mocha = spawn('mocha', ['test', '--compilers', 'js:babel-core/register', '--reporter', 'spec', '--recursive']);
+    let mocha = spawn('mocha',[
+        'test',
+        '--compilers',
+        'js:babel-core/register',
+        '--reporter',
+        'spec',
+        '--recursive'
+    ]);
+
     mocha.stdout.on('data', function(data) {
-        return process.stdout.write(data);
+        process.stdout.write(data);
     });
-    return mocha.stderr.on('data', function(data) {
-        return process.stdout.write(data);
+
+    mocha.stderr.on('data', function(data) {
+        process.stdout.write(data);
     });
 });
 
