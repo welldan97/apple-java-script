@@ -1,13 +1,13 @@
-var expect = require('chai').expect;
+// var expect = require('chai').expect;
+import { expect } from "chai";
+var AppleJavaScript = require('../src/apple-java-script');
 
-AppleJavaScript = require('../src/apple-java-script');
+describe('AppleJavaScript', () => {
+  beforeEach(function() {});
 
-describe('AppleJavaScript', function() {
-    beforeEach(function() {});
-
-    describe('#constructor', function() {
-        it('should', function() {
-            expect(true).to.exist;
-        });
-    });
+  describe('#constructor', () => {
+      it('should', () => {
+          expect(true).to.exist;
+      });
+  });
 });
