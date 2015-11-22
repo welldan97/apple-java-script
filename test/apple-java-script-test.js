@@ -5,7 +5,7 @@ import ajs from '../src/apple-java-script';
 describe('AppleJavaScript', () => {
   describe('.build', () => {
     it('makes text string out of function', () => {
-      let functionText = ajs.buildFunction(() => {
+      let functionText = ajs.build(() => {
         return 5 + 5;
       });
       expect(functionText).to.equal(
@@ -14,7 +14,7 @@ describe('AppleJavaScript', () => {
     });
 
     it('inserts arguments', () => {
-      let functionText = ajs.buildFunction(5, ' times', (x, y) => {
+      let functionText = ajs.build(5, ' times', (x, y) => {
         return x.toString() + y;
       });
 

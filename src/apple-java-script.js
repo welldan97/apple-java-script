@@ -7,7 +7,7 @@ let AppleJavaScript = () => {
   // 3. eval result
 };
 
-AppleJavaScript.buildFunction = (...args) => {
+AppleJavaScript.build = (...args) => {
   let fn = _(args).last()
   let argsToPass = args
         .slice(0, args.length - 1)
