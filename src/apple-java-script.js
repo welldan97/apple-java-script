@@ -1,3 +1,5 @@
+/*global exports */
+
 import _ from 'lodash';
 import serialize from 'serialize-javascript';
 import { exec } from 'child_process';
@@ -8,13 +10,17 @@ let execSync = deasync(exec);
 let escapeShell;
 
 let AppleJavaScript = (...args) => {
-  let functionText = AppleJavaScript.build(...args);
-  let result = AppleJavaScript.execSync(functionText);
+  let result = AppleJavaScript.runSafe(...args);
   return AppleJavaScript.unserialize(result);
 };
 
+AppleJavaScript.runSafe = (...args) => {
+  let functionText = AppleJavaScript.build(...args);
+  return AppleJavaScript.execSync(functionText);
+};
+
 AppleJavaScript.build = (...args) => {
-  let fn = _(args).last()
+  let fn = _(args).last();
   let argsToPass = args
         .slice(0, args.length - 1)
         .map( v => serialize(v)).join(', ');

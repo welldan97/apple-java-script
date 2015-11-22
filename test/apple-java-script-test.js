@@ -18,6 +18,17 @@ describe('AppleJavaScript', () => {
     });
   });
 
+  describe('.runSafe', () => {
+    it('should return unescaped result', () => {
+      let result = ajs.runSafe(() => {
+        let app = Application.currentApplication();
+        app.includeStandardAdditions = true;
+        return app.doShellScript('echo Babylon');
+      });
+      expect(result).to.equal('"Babylon"');
+    });
+  });
+
   describe('.build', () => {
     it('makes text string out of function', () => {
       let functionText = ajs.build(() => {

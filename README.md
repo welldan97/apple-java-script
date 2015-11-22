@@ -13,7 +13,7 @@ npm install apple-java-script
 
   // Return iTunes Playlists
   var playlists = ajs(function() {
-    iTunes = Application('iTunes');
+    var iTunes = Application('iTunes');
     return iTunes.playlists.name();
   });
 
@@ -28,15 +28,31 @@ Pass variables to function
 
   var message = 'Hello';
 
-  var dialogResult = ajs(message, function(message) {
-    app = Application.currentApplication();
-    app.includeStandardAdditions = true;
-    return app.displayDialog(message);
-  });
+  try {
+    ajs(message, function(message) {
+      var app = Application.currentApplication();
+      app.includeStandardAdditions = true;
+      return app.displayDialog(message);
+    });
 
-  if (dialogResult.buttonReturned === 'OK') {
-     console.log('You pushed Ok');
-  } else {
-     console.log('You pushed Cancel');
+    console.log('You pushed Ok');
+  } catch (e) {
+    console.log('You pushed Cancel');
   }
+```
+
+runSafe
+```js
+  var ajs = require('apple-java-script');
+
+  var message = 'Hello';
+
+  ajs.runSafe(message, function(message) {
+    let app = Application.currentApplication();
+    app.includeStandardAdditions = true;
+    return app.doShellScript('echo Babylon');
+  });
+  // =>
+  //  '"Babylon"'
+  
 ```
