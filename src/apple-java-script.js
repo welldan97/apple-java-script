@@ -27,6 +27,16 @@ AppleJavaScript.execSync = (functionText) => {
   return _(execSync(command)).trim('\n');
 };
 
+AppleJavaScript.unserialize = (value) => {
+  let result;
+  try {
+    eval(`result = ${value}`);
+  } catch (e) {
+    result = value;
+  }
+  return result;
+}
+
 escapeShell = (command) => {
   return command.replace(/'/g, "'\"'\"'");
 };

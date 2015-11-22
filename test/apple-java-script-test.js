@@ -30,4 +30,16 @@ describe('AppleJavaScript', () => {
       expect(ajs.execSync(functionText)).to.equal('5');
     });
   });
+
+  describe('.unserialize', () => {
+    it('unserializes regular js type', () => {
+      expect(ajs.unserialize('{"a":"hello", "b":[1, 2]}'))
+        .to.deep.equal({"a":"hello", "b":[1, 2]});
+    });
+
+    it('returns value itself for objects it cannot unserialize', () => {
+      expect(ajs.unserialize('Application.currentApplication()'))
+        .to.equal('Application.currentApplication()');
+    });
+  });
 });
