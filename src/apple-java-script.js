@@ -4,4 +4,8 @@ let AppleJavaScript = () => {
   // 3. eval result
 };
 
+AppleJavaScript.buildFunction = (fn) => {
+  return `(${fn.toString()})()`;
+};
+
 export default AppleJavaScript;
