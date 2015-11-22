@@ -1,4 +1,4 @@
-/*global exports */
+/*global module*/
 
 import _ from 'lodash';
 import serialize from 'serialize-javascript';
