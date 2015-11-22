@@ -24,7 +24,7 @@ the rutruning result.
     return iTunes.playlists.name();
   });
 
-  console.log(playlists)
+  playlists;
   // =>
   //  ['Library', 'Music', 'Music Videos', 'Movies', 'Home Videos', 'TV Shows', 'Podcasts', 'iTunes U', 'Audiobooks', 'Books', 'PDFs', 'Audiobooks', 'Genius']
 ```
@@ -62,7 +62,7 @@ you have to pass them to function as an argument.
 `AppleJavaScript` direct call could be dangerous because it uses
 `eval` behind the scenes to parse returned AppleScript value. So you
 better know what you are doing and control all inputs. If you are not
-that sure you can use `AppleJavaScript.runSafe`. It works the same
+sure in that you can use `AppleJavaScript.runSafe`. It works the same
 way, but doesn't try to parse returning value. So you'll have to do it
 yourself.
 
