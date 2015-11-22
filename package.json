@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^3.10.1",
     "serialize-javascript": "^1.1.2"
   },
   "devDependencies": {
