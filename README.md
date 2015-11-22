@@ -19,7 +19,6 @@ the rutruning result.
 
   var ajs = require('apple-java-script');
 
-  // Return iTunes Playlists
   var playlists = ajs(function() {
     var iTunes = Application('iTunes');
     return iTunes.playlists.name();
@@ -68,18 +67,16 @@ yourself.
 ```js
   var ajs = require('apple-java-script');
 
-  var message = 'Hello';
-
-  var fn = function(message) {
+  var fn = function() {
     let app = Application.currentApplication();
     app.includeStandardAdditions = true;
     return app.doShellScript('echo Babylon');
   }
 
-  ajs.runSafe(message, fn);
+  ajs.runSafe(fn);
   // =>
   //  '"Babylon"'
-  ajs(message, fn);
+  ajs(fn);
   // =>
   //  'Babylon'
 ```
