@@ -23,4 +23,11 @@ describe('AppleJavaScript', () => {
       );
     });
   });
+
+  describe('.execSync', () => {
+    it('execs stringifyed function and returns it result', () => {
+      let functionText = '(function(){return 5;})()'
+      expect(ajs.execSync(functionText)).to.equal('5');
+    });
+  });
 });
