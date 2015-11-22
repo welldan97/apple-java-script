@@ -40,4 +40,6 @@ AppleJavaScript.unserialize = (value) => {
 escapeShell = (command) => {
   return command.replace(/'/g, "'\"'\"'");
 };
+
+module.exports = AppleJavaScript;
 export default AppleJavaScript;
