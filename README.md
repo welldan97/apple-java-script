@@ -8,7 +8,8 @@ npm install apple-java-script
 
 ## Usage
 
-Use `AppleJavaScript` to run AppleScript in JavaScript language straight from node.js.
+Use `AppleJavaScript` to run AppleScript in JavaScript language
+straight from node.js.
 
 All you have to do is to directly call it. And it will try to parse
 the rutruning result.
@@ -33,7 +34,7 @@ the rutruning result.
 
 Behind the scenes, AppleJavaScript converts function to the text and
 runs it with shell command `osascript`. So the function itself
-actually doesn't have acces to outside scope. And noe of global or
+actually doesn't have acces to outside scope. And neither of global or
 outside variables are accessible from the function. To pass vars to it
 you have to pass them to function as an argument.
 
@@ -61,7 +62,7 @@ you have to pass them to function as an argument.
 `eval` behind the scenes to parse returned AppleScript value. So you
 better know what you are doing all inputs. If you are not that sure
 you can use `AppleJavaScript.runSafe`. It works the same way, but
-doesn't try to pass returning value
+doesn't try to parse returning value. So you'll have to do it yourself.
 
 ```js
   var ajs = require('apple-java-script');
