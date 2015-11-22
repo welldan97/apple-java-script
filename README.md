@@ -60,9 +60,10 @@ you have to pass them to function as an argument.
 
 `AppleJavaScript` direct call could be dangerous because it uses
 `eval` behind the scenes to parse returned AppleScript value. So you
-better know what you are doing all inputs. If you are not that sure
-you can use `AppleJavaScript.runSafe`. It works the same way, but
-doesn't try to parse returning value. So you'll have to do it yourself.
+better know what you are doing and control all inputs. If you are not
+that sure you can use `AppleJavaScript.runSafe`. It works the same
+way, but doesn't try to parse returning value. So you'll have to do it
+yourself.
 
 ```js
   var ajs = require('apple-java-script');
