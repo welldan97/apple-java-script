@@ -57,6 +57,8 @@ you have to pass them to function as an argument.
   }
 ```
 
+### Running in a safer way
+
 `AppleJavaScript` direct call could be dangerous because it uses
 `eval` behind the scenes to parse returned AppleScript value. So you
 better know what you are doing and control all inputs. If you are not
