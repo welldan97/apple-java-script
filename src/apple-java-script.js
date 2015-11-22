@@ -7,10 +7,10 @@ let execSync = deasync(exec);
 
 let escapeShell;
 
-let AppleJavaScript = () => {
-  // 1. build function
-  // 2. exec
-  // 3. eval result
+let AppleJavaScript = (...args) => {
+  let functionText = AppleJavaScript.build(...args);
+  let result = AppleJavaScript.execSync(functionText);
+  return AppleJavaScript.unserialize(result);
 };
 
 AppleJavaScript.build = (...args) => {

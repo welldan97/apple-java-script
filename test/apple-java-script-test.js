@@ -3,6 +3,21 @@ import { expect } from 'chai';
 import ajs from '../src/apple-java-script';
 
 describe('AppleJavaScript', () => {
+  describe('direct call', () => {
+    it('should run', () => {
+      ajs(() => {});
+    });
+
+    it('should return result', () => {
+      let result = ajs(() => {
+        let app = Application.currentApplication();
+        app.includeStandardAdditions = true;
+        return app.doShellScript('echo Babylon');
+      });
+      expect(result).to.equal('Babylon');
+    });
+  });
+
   describe('.build', () => {
     it('makes text string out of function', () => {
       let functionText = ajs.build(() => {
