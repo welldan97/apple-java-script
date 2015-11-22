@@ -1,72 +1,72 @@
-var AppleJavaScript,
-    exec,
-    jas,
-    serialize,
-    slice = [].slice;
+'use strict';
 
-exec = require('child_process').exec;
-
-serialize = require('serialize-javascript');
-
-AppleJavaScript = (function () {
-    function AppleJavaScript(fn1) {
-        this.fn = fn1;
-    }
-
-    AppleJavaScript.prototype.run = function () {
-        var arg, args, cb, command, j, script;
-        args = 2 <= arguments.length ? slice.call(arguments, 0, j = arguments.length - 1) : (j = 0, []), cb = arguments[j++];
-        if (typeof cb !== 'function') {
-            args.push(cb);
-        }
-        script = this.build(this.fn, args);
-        arg = this._escapeShell(script);
-        command = "osascript -s s -l JavaScript -e '" + arg + "'";
-        console.log(command);
-        return exec(command, function (error, stdout, stderr) {
-            if (typeof cb === 'function') {
-                return cb(error, stdout, stderr);
-            }
-        });
-    };
-
-    AppleJavaScript.prototype.build = function (fn, args) {
-        var varNames, vars;
-        varNames = this._getArgumentNames(this.fn);
-        vars = args.map(function (v, i) {
-            return "var " + varNames[i] + " = " + serialize(v) + ";\n";
-        }).join('');
-        return vars + this._getBody(this.fn);
-    };
-
-    AppleJavaScript.prototype._getArgumentNames = function (fn) {
-        var funStr;
-        funStr = fn.toString();
-        return funStr.slice(funStr.indexOf('(') + 1, funStr.indexOf(')')).match(/([^\s,]+)/g);
-    };
-
-    AppleJavaScript.prototype._getBody = function (fn) {
-        var fnText;
-        fnText = fn.toString();
-        return fnText.substring(fnText.indexOf('{') + 1, fnText.lastIndexOf('}'));
-    };
-
-    AppleJavaScript.prototype._escapeShell = function (str) {
-        return str.replace(/'/g, "'\"'\"'");
-    };
-
-    return AppleJavaScript;
-})();
-
-jas = new AppleJavaScript(function (hello) {
-    var iTunes;
-    5 + hello;
-    iTunes = Application('iTunes');
-    iTunes.playlists.name();
-    void 0;
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-jas.run(3, function (e, stdout, stderr) {
-    console.log(stderr);
-    return console.log(eval(stdout));
-});
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _serializeJavascript = require('serialize-javascript');
+
+var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
+
+var _child_process = require('child_process');
+
+var _deasync = require('deasync');
+
+var _deasync2 = _interopRequireDefault(_deasync);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*global module*/
+
+var execSync = (0, _deasync2.default)(_child_process.exec);
+
+var escapeShell = undefined;
+
+var AppleJavaScript = function AppleJavaScript() {
+  var result = AppleJavaScript.runSafe.apply(AppleJavaScript, arguments);
+  return AppleJavaScript.unserialize(result);
+};
+
+AppleJavaScript.runSafe = function () {
+  var functionText = AppleJavaScript.build.apply(AppleJavaScript, arguments);
+  return AppleJavaScript.execSync(functionText);
+};
+
+AppleJavaScript.build = function () {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  var fn = (0, _lodash2.default)(args).last();
+  var argsToPass = args.slice(0, args.length - 1).map(function (v) {
+    return (0, _serializeJavascript2.default)(v);
+  }).join(', ');
+  return '(' + fn.toString() + ')(' + argsToPass + ')';
+};
+
+AppleJavaScript.execSync = function (functionText) {
+  var functionTextEscaped = escapeShell(functionText);
+  var command = "osascript -s s -l JavaScript -e '" + functionTextEscaped + "'";
+  return (0, _lodash2.default)(execSync(command)).trim('\n');
+};
+
+AppleJavaScript.unserialize = function (value) {
+  var result = undefined;
+  try {
+    eval('result = ' + value);
+  } catch (e) {
+    result = value;
+  }
+  return result;
+};
+
+escapeShell = function (command) {
+  return command.replace(/'/g, "'\"'\"'");
+};
+
+module.exports = AppleJavaScript;
+exports.default = AppleJavaScript;

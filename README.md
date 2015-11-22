@@ -8,7 +8,14 @@ npm install apple-java-script
 
 ## Usage
 
+Use `AppleJavaScript` to run AppleScript in JavaScript language straight from node.js.
+
+All you have to do is to directly call it. And it will try to parse
+the rutruning result.
+
 ```js
+  // Getting iTunes Playlists
+
   var ajs = require('apple-java-script');
 
   // Return iTunes Playlists
@@ -22,8 +29,17 @@ npm install apple-java-script
   //  ['Library', 'Music', 'Music Videos', 'Movies', 'Home Videos', 'TV Shows', 'Podcasts', 'iTunes U', 'Audiobooks', 'Books', 'PDFs', 'Audiobooks', 'Genius']
 ```
 
-Pass variables to function
+### Passing variables
+
+Behind the scenes, AppleJavaScript converts function to the text and
+runs it with shell command `osascript`. So the function itself
+actually doesn't have acces to outside scope. And noe of global or
+outside variables are accessible from the function. To pass vars to it
+you have to pass them to function as an argument.
+
 ```js
+  // Showing modal and passing message from outer script
+
   var ajs = require('apple-java-script');
 
   var message = 'Hello';
@@ -41,18 +57,27 @@ Pass variables to function
   }
 ```
 
-runSafe
+`AppleJavaScript` direct call could be dangerous because it uses
+`eval` behind the scenes to parse returned AppleScript value. So you
+better know what you are doing all inputs. If you are not that sure
+you can use `AppleJavaScript.runSafe`. It works the same way, but
+doesn't try to pass returning value
+
 ```js
   var ajs = require('apple-java-script');
 
   var message = 'Hello';
 
-  ajs.runSafe(message, function(message) {
+  var fn = function(message) {
     let app = Application.currentApplication();
     app.includeStandardAdditions = true;
     return app.doShellScript('echo Babylon');
-  });
+  }
+
+  ajs.runSafe(message, fn);
   // =>
   //  '"Babylon"'
-  
+  ajs(message, fn);
+  // =>
+  //  'Babylon'
 ```
